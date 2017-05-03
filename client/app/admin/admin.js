@@ -49,6 +49,26 @@ app.config(function ($routeProvider) {
             .when('/admin/superlier/edit/:id', {
                 templateUrl: 'views/superlier/edit.html',
             })
+            //customer
+            .when('/admin/customer', {
+                templateUrl: 'views/customer/index.html',
+            })
+            .when('/admin/customer/add', {
+                templateUrl: 'views/customer/add.html',
+            })
+            .when('/admin/customer/edit/:id', {
+                templateUrl: 'views/customer/edit.html',
+            })
+            //customer
+            .when('/admin/product', {
+                templateUrl: 'views/product/index.html',
+            })
+            .when('/admin/product/add', {
+                templateUrl: 'views/product/add.html',
+            })
+            .when('/admin/product/edit/:id', {
+                templateUrl: 'views/product/edit.html',
+            })
 
 
 

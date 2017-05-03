@@ -37,7 +37,7 @@ app.controller('indexAdmin', function ($scope, $http, $filter, $window, Flash) {
         });
     };
     getData();
-    $scope.delete = function (id) {
+    $scope.destroy = function (id) {
         if ($window.confirm(message.confirm_delete)) {
             if (JSON.parse($window.sessionStorage.auth_user).id === id) {
                 Flash.create('error', message.cannot_delete_myself);

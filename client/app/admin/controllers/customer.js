@@ -12,29 +12,29 @@
 
 /* global admin, app, BASE_PATH_API, message, BASE_PATH_API_ADMIN, transformRequestToUrlEncoded */
 
-admin.pageCategory = 1; //set page deffaul for list operator is 1.
-admin.searchCategory; // set keyword page defaul for list operator is null;
-app.controller('indexCategory', function ($scope, $http, $filter, $window, Flash) {
-    setActiveMenuFirst(2);
-    setDefaulKeySearchAndPageCurent(admin, ['pageCategory', 'searchCategory']);
+admin.pageCustomer = 1; //set page deffaul for list operator is 1.
+admin.searchCustomer; // set keyword page defaul for list operator is null;
+app.controller('indexCustomer', function ($scope, $http, $filter, $window, Flash) {
+    setActiveMenuFirst(4);
+    setDefaulKeySearchAndPageCurent(admin, ['pageCustomer', 'searchCustomer']);
     $('#spinner_loading').removeClass('hide');
     var getData = function () {
-        $http.get(BASE_PATH_API + 'category/index').then(function (data) {
-            $scope.categories = data.data;
-            $scope.keyword = admin.searchCategory;
-            paginate($scope, $scope.categories, admin.pageCategory);
+        $http.get(BASE_PATH_API + 'customer/index').then(function (data) {
+            $scope.customers = data.data;
+            $scope.keyword = admin.searchCustomer;
+            paginate($scope, $scope.customers, admin.pageCustomer);
             $('#spinner_loading').addClass('hide');
             $scope.$watch('keyword', function (newValue, oldValue) {
-                admin.searchCategory = newValue;
+                admin.searchCustomer = newValue;
                 var newData = $filter('customSearch')(data.data, newValue, $scope.fileds);
                 $scope.pageChangeSearch = function (page) {
-                    admin.pageCategory = 1;
+                    admin.pageCustomer = 1;
                 };
                 $scope.operators = newData;
-                paginate($scope, $scope.operators, admin.pageCategory);
+                paginate($scope, $scope.operators, admin.pageCustomer);
             });
             $scope.pageChange = function (page) {
-                admin.pageCategory = page;
+                admin.pageCustomer = page;
             };
         });
     };
@@ -44,7 +44,7 @@ app.controller('indexCategory', function ($scope, $http, $filter, $window, Flash
             $('#spinner_loading').removeClass('hide');
             $http({
                 method: "DELETE",
-                url: BASE_PATH_API + 'category/destroy/' + id
+                url: BASE_PATH_API + 'customer/destroy/' + id
             }).then(function success(data) {
                 getData();
                 Flash.create('success', data.data.msg);
@@ -57,25 +57,25 @@ app.controller('indexCategory', function ($scope, $http, $filter, $window, Flash
     };
 });
 /**
- * @function category controller
+ * @function customer controller
  */
-app.controller('addCategory', function ($scope, $location, $http, Flash) {
-    setActiveMenuLast(2);
+app.controller('addCustomer', function ($scope, $location, $http, Flash) {
+    setActiveMenuLast(4);
     setDefaulKeySearchAndPageCurent(admin, ['curentPageOperator', 'keyWordSearchIndexOperator']);
     $scope.add = function () {
         if ($scope.frm_add.$valid) {
             $('#spinner_loading').removeClass('hide');
             $http({
                 method: "POST",
-                url: BASE_PATH_API + "category/store",
+                url: BASE_PATH_API + "customer/store",
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 transformRequest: transformRequestToUrlEncoded,
-                data: $scope.category
+                data: $scope.customer
             }).then(function success(data) {
                 Flash.create('success', data.data.msg);
-                $location.path('admin/category');
+                $location.path('admin/customer');
                 $('#spinner_loading').addClass('hide');
             }, function error(data) {
                 Flash.create('error', data.data.msg);
@@ -87,12 +87,11 @@ app.controller('addCategory', function ($scope, $location, $http, Flash) {
 /**
  * 
  */
-app.controller('editCategory', function ($scope, $location, $http, $routeParams, $window, Flash) {
-    setActiveMenuFirst(2);
+app.controller('editCustomer', function ($scope, $location, $http, $routeParams, $window, Flash) {
+    setActiveMenuFirst(4);
     $('#spinner_loading').removeClass('hide');
-    $http.get(BASE_PATH_API + 'category/show/' + $routeParams.id).then(function (data) {
-        console.log(data.data);
-        $scope.category = data.data;
+    $http.get(BASE_PATH_API + 'customer/show/' + $routeParams.id).then(function (data) {
+        $scope.customer = data.data;
         $('#spinner_loading').addClass('hide');
     });
     $scope.edit = function () {
@@ -100,16 +99,16 @@ app.controller('editCategory', function ($scope, $location, $http, $routeParams,
             $('#spinner_loading').removeClass('hide');
             $http({
                 method: "PUT",
-                url: BASE_PATH_API + "category/update/" + $routeParams.id,
+                url: BASE_PATH_API + "customer/update/" + $routeParams.id,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 transformRequest: transformRequestToUrlEncoded,
-                data: $scope.category,
+                data: $scope.customer,
             }).then(function success(data) {
                 Flash.create('success', data.data.msg);
                 $('#spinner_loading').addClass('hide');
-
+                $location.path('/admin/customer')
             }, function error(data) {
                 Flash.create('error', data.data.msg);
                 $('#spinner_loading').addClass('hide');

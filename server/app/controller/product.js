@@ -12,7 +12,7 @@ var router = express.Router();
 var passport = require('passport');
 var jwt = require('jwt-simple');
 var config = require('../../config/database');
-var Customer = require('../models/customer');
+var Product = require('../models/product');
 var common = require('../helpers/common.js');
 var error = require('mongoose-error-handler');
 var message = require('../helpers/message');
@@ -29,14 +29,12 @@ router.delete('/destroy/:id', passport.authenticate('jwt', {session: false}), co
  * @returns {undefined}
  */
 function index(req, res) {
-    Customer.find({}, function (err, customers) {
-        if (err) {
-            return res.status(status.BAD_REQUEST).send({
-                msg: message.error,
-            })
-        }
-        res.status(status.OK).send(customers);
-    })
+    Product.find({})
+            .populate('category_id','name')
+            .exec(function (err, products) {
+                res.status(status.OK).send(products);
+            });
+
 }
 /**
  * @date 28/4/2017
@@ -45,7 +43,7 @@ function index(req, res) {
  * @returns {undefined}
  */
 function store(req, res) {
-    Customer.create(req.body, function (err) {
+    Product.create(req.body, function (err) {
         if (err) {
             return res.status(status.BAD_REQUEST).send(error.set(err));
         }
@@ -62,7 +60,7 @@ function store(req, res) {
  */
 function update(req, res) {
     delete req.body["_id"];
-    Customer.update({_id: req.params.id}, req.body, function (err) {
+    Product.update({_id: req.params.id}, req.body, function (err) {
         if (err) {
             return res.status(status.BAD_REQUEST).send({
                 msg: error.set(err),
@@ -80,10 +78,10 @@ function update(req, res) {
  * @returns {undefined}
  */
 function show(req, res) {
-    Customer.findOne({_id: req.params.id}, function (err, cate) {
+    Product.findOne({_id: req.params.id}, function (err, product) {
         if (err)
             throw err;
-        res.status(status.OK).send(cate);
+        res.status(status.OK).send(product);
     });
 }
 /**
@@ -93,7 +91,7 @@ function show(req, res) {
  * @returns {undefined}
  */
 function destroy(req, res) {
-    Customer.remove({_id: req.params.id}, function (err) {
+    Product.remove({_id: req.params.id}, function (err) {
         if (err) {
             throw err;
         } else {

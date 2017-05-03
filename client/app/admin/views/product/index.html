@@ -1,4 +1,4 @@
-<div class="container" ng-controller="indexCategory">
+<div class="container" ng-controller="indexProduct">
     <div class="panel panel-default panel_margin">
         <div class="panel-heading">
             <label class="black">{{lable.list_operator}}</label>
@@ -6,7 +6,7 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-sm-4">
-                    <a class="btn btn-primary" href="#admin/category/add">{{lable.add}}</a>
+                    <a class="btn btn-primary" href="#admin/product/add">{{lable.add}}</a>
                 </div>
                 <div class="col-sm-8 pull-right"  >
                     <form class="navbar-form navbar-left pull-right" role="search">
@@ -20,19 +20,23 @@
                 <thead>
                     <tr>
                         <th class="width-5">{{lable.stt}}</th>
-                        <th class="width-25">Tên loại</th>
-                        <th class="width-50">Mô tả</th>
+                        <th class="width-25">Tên</th>
+                        <th class="width-20">Mã loại</th>
+                        <th class="width-20">Số lượng</th>
+                        <th class="width-20">Mô tả</th>
                         <th class="width-10">{{lable.update}}</th>
                         <th class="width-10">{{lable.delete}}</th>
                     </tr>
                 </thead>
                 <tbody ng-init="fileds = ['name', 'description']">
-                    <tr ng-repeat="category in categories.slice(((currentPage - 1) * itemsPerPage), ((currentPage) * itemsPerPage))| customSearch: keyword: fileds">
+                    <tr ng-repeat="product in products.slice(((currentPage - 1) * itemsPerPage), ((currentPage) * itemsPerPage)) | customSearch: keyword: fileds">
                         <td>{{$index + ((currentPage - 1) * itemsPerPage) + 1}}</td>
-                        <td>{{category.name}}</td>
-                        <td>{{category.description}}</td>
-                        <td><a class="btn btn-warning btn-xs" href="#/admin/category/edit/{{category._id}}">{{lable.update}}</a></td>
-                        <td><a class="btn btn-danger btn-xs" ng-click="destroy(category._id)">{{lable.delete}}</a></td>
+                        <td>{{product.name}}</td>
+                        <td>{{product.category_id.name}}</td>
+                        <td>{{product.quanlity}}</td>
+                        <td>{{product.description}}</td>
+                        <td><a class="btn btn-warning btn-xs" href="#/admin/product/edit/{{product._id}}">{{lable.update}}</a></td>
+                        <td><a class="btn btn-danger btn-xs" ng-click="destroy(product._id)">{{lable.delete}}</a></td>
                     </tr>
                 </tbody>
             </table>

@@ -1,23 +1,42 @@
-<div div class="container" ng-controller="addCategory">
-    <form class="form-horizontal form-label-left" name="frm_add_category" novalidate ng-submit="addCategory()">
+<div div class="container" ng-controller="addCustomer">
+    <form class="form-horizontal form-label-left" name="frm_add" novalidate ng-submit="add()">
         <div class="panel panel-default panel_margin">
             <div class="panel-heading"><label class="black">Thêm mới danh mục</label></div>
             <div class="panel-body">
-                <div class="form-group" ng-class="{'has-error': (frm_add_category.name.$touched && frm_add_category.name.$invalid) || (frm_add_category.$submitted && frm_add_category.name.$invalid)}">
+                <div class="form-group" ng-class="{'has-error': (frm_add.name.$touched && frm_add.name.$invalid) || (frm_add.$submitted && frm_add.name.$invalid)}">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Tên </label>
                     <div class="col-md-9 col-sm-9 col-xs-12" >
-                        <input type="name" class="form-control"  name="name" required ng-model="category.name" placeholder="Tên">
-                        <div ng-messages="frm_add_category.name.$error" ng-show="frm_add_category.name.$touched || frm_add_category.$submitted">
+                        <input type="name" class="form-control"  name="name" required ng-model="customer.name" placeholder="Tên">
+                        <div ng-messages="frm_add.name.$error" ng-show="frm_add.name.$touched || frm_add.$submitted">
                             <span class="error" ng-message="required">Vui lòng nhập danh mục</span>
                         </div>
                     </div>
                 </div>
-                <div class="form-group" ng-class="{'has-error': (frm_add_category.description.$touched && frm_add_category.description.$invalid) || (frm_add_category.$submitted && frm_add_category.description.$invalid)}">
-                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.description}}</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12" >
-                        <textarea class="form-control" rows="5" name="description" required ng-model="category.description" placeholder="{{lable.description}}"></textarea>
-                        <div ng-messages="frm_add_category.description.$error" ng-show="frm_add_category.description.$touched || frm_add_category.$submitted">
-                            <span class="error" ng-message="required">Vui lòng nhập mô tả</span>
+                <div class="form-group" ng-class="{'has-error': (frm_add.phone.$touched && frm_add.phone.$invalid) || (frm_add.phone.$invalid && frm_add.$submitted) }">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.phone}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" name="phone" ng-model="customer.phone" placeholder="{{lable.phone}}" required>
+                        <div ng-messages="frm_add.phone.$error" ng-show="frm_add.phone.$touched || frm_add.$submitted">
+                            <span class="error" ng-message="required">{{lable.input_phone}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': (frm_add.email.$touched && frm_add.email.$invalid) || (frm_add.email.$invalid && frm_add.$submitted) }">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.email}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="email"  class="form-control" name="email" ng-model="customer.email" placeholder="{{lable.email}}" required>
+                        <div ng-messages="frm_add.email.$error" ng-show="frm_add.email.$touched || frm_add.$submitted">
+                            <span class="error" ng-message="required">{{lable.input_email}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': (frm_add.address.$touched && frm_add.address.$invalid) || (frm_add.address.$invalid && frm_add.$submitted) }">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.address}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" name="address" ng-model="customer.address" placeholder="{{lable.address}}" required>
+                        <div ng-messages="frm_add.address.$error" ng-show="frm_add.address.$touched || frm_add.$submitted">
+                            <span class="error" ng-message="required">{{lable.input_address}}</span>
                         </div>
                     </div>
                 </div>
