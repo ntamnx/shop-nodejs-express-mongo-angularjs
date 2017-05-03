@@ -18,7 +18,7 @@ var error = require('mongoose-error-handler');
 var message = require('../helpers/message');
 var status = require('../helpers/status');
 router.get('/index', passport.authenticate('jwt', {session: false}), common.check_role, index);
-router.post('/add', passport.authenticate('jwt', {session: false}), common.check_role, add);
+router.post('/store', passport.authenticate('jwt', {session: false}), common.check_role, store);
 router.put('/update/:id', passport.authenticate('jwt', {session: false}), common.check_role, update);
 router.get('/show/:id', passport.authenticate('jwt', {session: false}), common.check_role, show);
 router.delete('/destroy/:id', passport.authenticate('jwt', {session: false}), common.check_role, destroy);
@@ -44,7 +44,7 @@ function index(req, res) {
  * @param {type} res
  * @returns {undefined}
  */
-function add(req, res) {
+function store(req, res) {
     Category.create(req.body, function (err) {
         if (err) {
             return res.status(status.BAD_REQUEST).send(error.set(err));

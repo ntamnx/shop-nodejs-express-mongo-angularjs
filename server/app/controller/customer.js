@@ -4,7 +4,7 @@
  and open the template in the editor.
  */
 /* 
- Created on : Apr 27, 2017, 9:55:11 AM
+ Created on : Apr 28, 2017, 3:10:44 PM
  Author     : nguyen.xuan.tam
  */
 var express = require('express');
@@ -12,94 +12,88 @@ var router = express.Router();
 var passport = require('passport');
 var jwt = require('jwt-simple');
 var config = require('../../config/database');
+var Customer = require('../models/customer');
+var common = require('../helpers/common.js');
+var error = require('mongoose-error-handler');
 var message = require('../helpers/message');
 var status = require('../helpers/status');
-var common = require('../helpers/common.js');
-var User = require('../models/user');
-var error = require('mongoose-error-handler');
-var bcrypt = require('bcrypt');
-// route to a restricted info (GET http://localhost:8080/api/memberinfo)
 router.get('/index', passport.authenticate('jwt', {session: false}), common.check_role, index);
 router.post('/store', passport.authenticate('jwt', {session: false}), common.check_role, store);
 router.put('/update/:id', passport.authenticate('jwt', {session: false}), common.check_role, update);
 router.get('/show/:id', passport.authenticate('jwt', {session: false}), common.check_role, show);
 router.delete('/destroy/:id', passport.authenticate('jwt', {session: false}), common.check_role, destroy);
-
 /**
- * @date 28/4/2017
- * @function get list admin.
+ * @date 28/4/2014
  * @param {type} req
  * @param {type} res
  * @returns {undefined}
  */
 function index(req, res) {
-    User.find({}, function (err, users) {
-        res.send(users);
-    });
+    Customer.find({}, function (err, categories) {
+        if (err) {
+            return res.status(status.BAD_REQUEST).send({
+                msg: message.error,
+            })
+        }
+        res.status(status.OK).send(categories);
+    })
 }
 /**
- * 
+ * @date 28/4/2017
  * @param {type} req
  * @param {type} res
  * @returns {undefined}
  */
 function store(req, res) {
-    var newUser = new User({
-        email: req.body.email,
-        password: req.body.password
-    });
-    // save the user
-    newUser.save(function (err) {
+    Customer.create(req.body, function (err) {
         if (err) {
             return res.status(status.BAD_REQUEST).send(error.set(err));
         }
-        res.status(status.OK).send({msg: message.add_success});
+        res.status(status.OK).send({
+            msg: message.add_success
+        });
     });
 }
 /**
- * 
- * @param {type} req
- * @param {type} res
- * @returns {undefined}
- */
-function show(req, res) {
-    User.findOne({_id: req.params.id}, function (err, user) {
-        if (err) {
-            throw err;
-        }
-        return res.status(status.OK).send(user);
-    });
-}
-/**
- * @date 28/4/2017
- * @function update password for admin
+ * @date 3/5/3017
  * @param {type} req
  * @param {type} res
  * @returns {undefined}
  */
 function update(req, res) {
-    var salt = bcrypt.genSaltSync(10);
-    User.update({_id: req.params.id}, {
-        password: bcrypt.hashSync(req.body.new_password, salt)
-    }, function (err) {
+    delete req.body["_id"];
+    Customer.update({_id: req.params.id}, req.body, function (err) {
         if (err) {
-            throw err;
+            return res.status(status.BAD_REQUEST).send({
+                msg: error.set(err),
+            });
         }
         return res.status(status.OK).send({
             msg: message.update_success
         });
     });
-
 }
 /**
- * @date 28/4/2014
- * @fuction delete user admin by id
+ * @date 28/4/2016
+ * @param {type} req
+ * @param {type} res
+ * @returns {undefined}
+ */
+function show(req, res) {
+    Customer.findOne({_id: req.params.id}, function (err, cate) {
+        if (err)
+            throw err;
+        res.status(status.OK).send(cate);
+    });
+}
+/**
+ * @date 5/3/2017
  * @param {type} req
  * @param {type} res
  * @returns {undefined}
  */
 function destroy(req, res) {
-    User.remove({_id: req.params.id}, function (err) {
+    Customer.remove({_id: req.params.id}, function (err) {
         if (err) {
             throw err;
         } else {

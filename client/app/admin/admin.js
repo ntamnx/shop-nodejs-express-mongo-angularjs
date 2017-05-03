@@ -39,7 +39,24 @@ app.config(function ($routeProvider) {
             .when('/admin/admin/edit/:id', {
                 templateUrl: 'views/admin/edit.html',
             })
-            //            
+            //superlier
+            .when('/admin/superlier', {
+                templateUrl: 'views/superlier/index.html',
+            })
+            .when('/admin/superlier/add', {
+                templateUrl: 'views/superlier/add.html',
+            })
+            .when('/admin/superlier/edit/:id', {
+                templateUrl: 'views/superlier/edit.html',
+            })
+
+
+
+
+
+
+
+
 
 
 

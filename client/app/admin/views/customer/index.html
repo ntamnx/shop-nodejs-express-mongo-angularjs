@@ -1,15 +1,15 @@
-<div class="container" ng-controller="indexAdmin">
+<div class="container" ng-controller="indexCategory">
     <div class="panel panel-default panel_margin">
         <div class="panel-heading">
-            <label class="black">{{lable.list_admin}}</label>
+            <label class="black">{{lable.list_operator}}</label>
         </div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-sm-4">
-                    <a class="btn btn-primary" href="#admin/admin/add">{{lable.add}}</a>
+                    <a class="btn btn-primary" href="#admin/category/add">{{lable.add}}</a>
                 </div>
                 <div class="col-sm-8 pull-right"  >
-                    <form class="navbar-form navbar-left pull-right" role="search"  >
+                    <form class="navbar-form navbar-left pull-right" role="search">
                         <div class="form-group">
                             <input type="text" class="form-control" ng-model="keyword" ng-change="pageChangeSearch(currentPage)" placeholder="{{lable.search}}" >
                         </div>
@@ -20,19 +20,19 @@
                 <thead>
                     <tr>
                         <th class="width-5">{{lable.stt}}</th>
-                        <th class="width-25">{{lable.email}}</th>
-                        <th class="width-50">{{lable.password}}</th>
+                        <th class="width-25">Tên loại</th>
+                        <th class="width-50">Mô tả</th>
                         <th class="width-10">{{lable.update}}</th>
                         <th class="width-10">{{lable.delete}}</th>
                     </tr>
                 </thead>
-                <tbody ng-init="fileds = ['email', 'level']">
-                    <tr ng-repeat="admin in admins.slice(((currentPage - 1) * itemsPerPage), ((currentPage) * itemsPerPage))| filter: customSearch : fileds">
+                <tbody ng-init="fileds = ['name', 'description']">
+                    <tr ng-repeat="category in categories.slice(((currentPage - 1) * itemsPerPage), ((currentPage) * itemsPerPage))| customSearch: keyword: fileds">
                         <td>{{$index + ((currentPage - 1) * itemsPerPage) + 1}}</td>
-                        <td>{{admin.email}}</td>
-                        <td>{{admin.password}}</td>
-                        <td><a class="btn btn-warning btn-xs" href="#admin/admin/edit/{{admin._id}}">{{lable.update}}</a></td>
-                        <td><a class="btn btn-danger btn-xs" ng-click="delete(admin._id)">{{lable.delete}}</a></td>
+                        <td>{{category.name}}</td>
+                        <td>{{category.description}}</td>
+                        <td><a class="btn btn-warning btn-xs" href="#/admin/category/edit/{{category._id}}">{{lable.update}}</a></td>
+                        <td><a class="btn btn-danger btn-xs" ng-click="deleteCategory(category._id)">{{lable.delete}}</a></td>
                     </tr>
                 </tbody>
             </table>

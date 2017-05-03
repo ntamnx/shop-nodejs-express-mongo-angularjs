@@ -8,7 +8,7 @@
  Author     : nguyen.xuan.tam
  */
 var express = require('express');
-var apiRoutes = express.Router();
+var router = express.Router();
 var User = require('../models/user');
 var LoginHistory = require('../models/login_history');
 var jwt = require('jwt-simple');
@@ -20,7 +20,7 @@ var error = require('mongoose-error-handler');
 /**
  * 
  */
-apiRoutes.post('/login', function (req, res) {
+router.post('/login', function (req, res) {
     User.findOne({
         email: req.body.email
     }, function (err, user) {
@@ -50,4 +50,4 @@ apiRoutes.post('/login', function (req, res) {
         }
     });
 });
-module.exports = apiRoutes;
+module.exports = router;

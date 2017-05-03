@@ -8,43 +8,41 @@
  Author     : nguyen.xuan.tam
  */
 
+/* global app, message_delete_success, message_delete_error, transformRequestToUrlEncoded, BASE_PATH_API_ADMIN, admin, removeKeySearchAndPageCurentInPageDiffent, BASE_PATH_API, message */
 
-
-/* global admin, app, BASE_PATH_API, message, BASE_PATH_API_ADMIN, transformRequestToUrlEncoded */
-
-admin.pageCategory = 1; //set page deffaul for list operator is 1.
-admin.searchCategory; // set keyword page defaul for list operator is null;
-app.controller('indexCategory', function ($scope, $http, $filter, $window, Flash) {
-    setActiveMenuFirst(2);
-    setDefaulKeySearchAndPageCurent(admin, ['pageCategory', 'searchCategory']);
+admin.pageSuperlier = 1; // set deffaul curent page new =1 when page load success.
+admin.keywordSuperlier;  // set deffaul keyword search is null when page load success.
+app.controller('indexSuperlier', function ($scope, $http, $filter, $window, Flash) {
+    setActiveMenuFirst(3);
+    setDefaulKeySearchAndPageCurent(admin, ['pageSuperlier', 'keywordSuperlier']);
     $('#spinner_loading').removeClass('hide');
     var getData = function () {
-        $http.get(BASE_PATH_API + 'category/index').then(function (data) {
-            $scope.categories = data.data;
-            $scope.keyword = admin.searchCategory;
-            paginate($scope, $scope.categories, admin.pageCategory);
+        $http.get(BASE_PATH_API + 'superlier/index').then(function (data) {
+            $scope.superliers = data.data;
+            $scope.keyword = admin.keywordSuperlier;
+            paginate($scope, $scope.superliers, admin.pageSuperlier);
             $('#spinner_loading').addClass('hide');
             $scope.$watch('keyword', function (newValue, oldValue) {
-                admin.searchCategory = newValue;
+                admin.keywordSuperlier = newValue;
                 var newData = $filter('customSearch')(data.data, newValue, $scope.fileds);
                 $scope.pageChangeSearch = function (page) {
-                    admin.pageCategory = 1;
+                    admin.pageSuperlier = 1;
                 };
-                $scope.operators = newData;
-                paginate($scope, $scope.operators, admin.pageCategory);
+                $scope.superliers = newData;
+                paginate($scope, $scope.superliers, admin.pageSuperlier);
             });
             $scope.pageChange = function (page) {
-                admin.pageCategory = page;
+                admin.pageSuperlier = page;
             };
         });
-    };
+    }
     getData();
-    $scope.deleteCategory = function (id) {
+    $scope.destory = function (id) {
         if ($window.confirm(message.confirm_delete)) {
             $('#spinner_loading').removeClass('hide');
             $http({
                 method: "DELETE",
-                url: BASE_PATH_API + 'category/destroy/' + id
+                url: BASE_PATH_API + 'superlier/destroy/' + id
             }).then(function success(data) {
                 getData();
                 Flash.create('success', data.data.msg);
@@ -57,63 +55,63 @@ app.controller('indexCategory', function ($scope, $http, $filter, $window, Flash
     };
 });
 /**
- * @function category controller
+ * 
  */
-app.controller('addCategory', function ($scope, $location, $http, Flash) {
-    setActiveMenuLast(2);
-    setDefaulKeySearchAndPageCurent(admin, ['curentPageOperator', 'keyWordSearchIndexOperator']);
-    $scope.addCategory = function () {
-        if ($scope.frm_add_category.$valid) {
+app.controller('addSuperlier', function ($scope, $http, $location, Flash, $window) {
+    setActiveMenuLast(3);
+    setDefaulKeySearchAndPageCurent(admin, ['pageSuperlier', 'keywordSuperlier']);
+    $scope.add = function () {
+        if ($scope.frm_add.$valid) {
             $('#spinner_loading').removeClass('hide');
             $http({
-                method: "POST",
-                url: BASE_PATH_API + "category/store",
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
+                method: 'POST',
+                url: BASE_PATH_API + 'superlier/store',
                 transformRequest: transformRequestToUrlEncoded,
-                data: $scope.category
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                data: $scope.superlier,
             }).then(function success(data) {
-                Flash.create('success', data.data.msg);
-                $location.path('admin/category');
                 $('#spinner_loading').addClass('hide');
+                $location.path('/admin/superlier')
+                Flash.create('success', data.data.msg);
             }, function error(data) {
                 Flash.create('error', data.data.msg);
                 $('#spinner_loading').addClass('hide');
             });
         }
-    };
+    }
 });
 /**
  * 
  */
-app.controller('editCategory', function ($scope, $location, $http, $routeParams, $window, Flash) {
-    setActiveMenuFirst(2);
+app.controller('editSuperlier', function ($scope, $location, $http, $routeParams, Flash) {
+    setActiveMenuFirst(3);
     $('#spinner_loading').removeClass('hide');
-    $http.get(BASE_PATH_API + 'category/show/' + $routeParams.id).then(function (data) {
-        console.log(data.data);
-        $scope.category = data.data;
+    $http.get(BASE_PATH_API + 'superlier/show/' + $routeParams.id).then(function (data) {
+        $scope.superlier = data.data;
         $('#spinner_loading').addClass('hide');
-    });
+    })
     $scope.edit = function () {
         if ($scope.frm_edit.$valid) {
             $('#spinner_loading').removeClass('hide');
             $http({
-                method: "PUT",
-                url: BASE_PATH_API + "category/update/" + $routeParams.id,
+                method: 'PUT',
+                url: BASE_PATH_API + 'superlier/update/' + $routeParams.id,
+                transformRequest: transformRequestToUrlEncoded,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                transformRequest: transformRequestToUrlEncoded,
-                data: $scope.category,
+                data: $scope.superlier,
             }).then(function success(data) {
                 Flash.create('success', data.data.msg);
+                $location.path('/admin/superlier');
                 $('#spinner_loading').addClass('hide');
-
             }, function error(data) {
                 Flash.create('error', data.data.msg);
                 $('#spinner_loading').addClass('hide');
             });
+
         }
     }
 });

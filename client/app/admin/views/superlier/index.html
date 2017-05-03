@@ -1,12 +1,12 @@
-<div class="container" ng-controller="indexAdmin">
+<div class="container" ng-controller="indexSuperlier">
     <div class="panel panel-default panel_margin">
         <div class="panel-heading">
-            <label class="black">{{lable.list_admin}}</label>
+            <label class="black"> {{lable.list_new}}</label>
         </div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-sm-4">
-                    <a class="btn btn-primary" href="#admin/admin/add">{{lable.add}}</a>
+                    <a class="btn btn-primary" href="#admin/superlier/add">{{lable.add}}</a>
                 </div>
                 <div class="col-sm-8 pull-right"  >
                     <form class="navbar-form navbar-left pull-right" role="search"  >
@@ -16,23 +16,27 @@
                     </form>
                 </div>
             </div>
-            <table class="table table-hover">
+            <table class="table table-hover table_new">
                 <thead>
                     <tr>
                         <th class="width-5">{{lable.stt}}</th>
-                        <th class="width-25">{{lable.email}}</th>
-                        <th class="width-50">{{lable.password}}</th>
+                        <th class="width-20">Tên</th>
+                        <th class="width-55">Địa chỉ</th>
+                        <th class="width-10">Số điện thoại</th>
+                        <th class="width-10">Mô tả</th>
                         <th class="width-10">{{lable.update}}</th>
                         <th class="width-10">{{lable.delete}}</th>
                     </tr>
                 </thead>
-                <tbody ng-init="fileds = ['email', 'level']">
-                    <tr ng-repeat="admin in admins.slice(((currentPage - 1) * itemsPerPage), ((currentPage) * itemsPerPage))| filter: customSearch : fileds">
-                        <td>{{$index + ((currentPage - 1) * itemsPerPage) + 1}}</td>
-                        <td>{{admin.email}}</td>
-                        <td>{{admin.password}}</td>
-                        <td><a class="btn btn-warning btn-xs" href="#admin/admin/edit/{{admin._id}}">{{lable.update}}</a></td>
-                        <td><a class="btn btn-danger btn-xs" ng-click="delete(admin._id)">{{lable.delete}}</a></td>
+                <tbody ng-init="fileds = ['name', 'adress', 'phone', 'descripton']">
+                    <tr ng-repeat="superlier in superliers.slice(((currentPage - 1) * itemsPerPage), ((currentPage) * itemsPerPage)) | customSearch: keyword : fileds">
+                        <td>{{$index + 1 + ((currentPage - 1) * itemsPerPage)}}</td>
+                        <td>{{superlier.name}}</td>
+                        <td>{{superlier.address}}</td>
+                        <td>{{superlier.phone}}</td>
+                        <td>{{superlier.description}}</td>
+                        <td><a class="btn btn-warning btn-xs" href="#/admin/superlier/edit/{{superlier._id}}">{{lable.update}}</a></td>
+                        <td><a class="btn btn-danger btn-xs" ng-click="destory(superlier._id)">{{lable.delete}}</a></td>
                     </tr>
                 </tbody>
             </table>

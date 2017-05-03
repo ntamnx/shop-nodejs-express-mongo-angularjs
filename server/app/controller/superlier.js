@@ -4,9 +4,10 @@
  and open the template in the editor.
  */
 /* 
- Created on : Apr 27, 2017, 9:55:11 AM
+ Created on : May 3, 2017, 11:38:52 AM
  Author     : nguyen.xuan.tam
  */
+
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
@@ -15,45 +16,57 @@ var config = require('../../config/database');
 var message = require('../helpers/message');
 var status = require('../helpers/status');
 var common = require('../helpers/common.js');
-var User = require('../models/user');
+var Superlier = require('../models/superlier');
 var error = require('mongoose-error-handler');
-var bcrypt = require('bcrypt');
-// route to a restricted info (GET http://localhost:8080/api/memberinfo)
 router.get('/index', passport.authenticate('jwt', {session: false}), common.check_role, index);
 router.post('/store', passport.authenticate('jwt', {session: false}), common.check_role, store);
 router.put('/update/:id', passport.authenticate('jwt', {session: false}), common.check_role, update);
 router.get('/show/:id', passport.authenticate('jwt', {session: false}), common.check_role, show);
 router.delete('/destroy/:id', passport.authenticate('jwt', {session: false}), common.check_role, destroy);
-
 /**
- * @date 28/4/2017
- * @function get list admin.
+ * #@date 5/3/2017
  * @param {type} req
  * @param {type} res
  * @returns {undefined}
  */
 function index(req, res) {
-    User.find({}, function (err, users) {
-        res.send(users);
+    Superlier.find({}, function (err, superliers) {
+        res.send(superliers);
     });
 }
 /**
- * 
+ * @date 5/3/2017
  * @param {type} req
  * @param {type} res
  * @returns {undefined}
  */
 function store(req, res) {
-    var newUser = new User({
-        email: req.body.email,
-        password: req.body.password
+    Superlier.create(req.body, function (err) {
+        if (err)
+            return res.status(status.BAD_REQUEST).send({
+                msg: error.set(err),
+            });
+        res.send({
+            msg: message.add_success,
+        });
     });
-    // save the user
-    newUser.save(function (err) {
-        if (err) {
-            return res.status(status.BAD_REQUEST).send(error.set(err));
-        }
-        res.status(status.OK).send({msg: message.add_success});
+}
+/**
+ * @date 5/3/2017
+ * @param {type} req
+ * @param {type} res
+ * @returns {undefined}
+ */
+function update(req, res) {
+    delete req.body['_id'];
+    Superlier.update({_id: req.params.id}, req.body, function (err) {
+        if (err)
+            return res.status(status.BAD_REQUEST).send({
+                msg: error.set(err),
+            });
+        res.send({
+            msg: message.update_success,
+        });
     });
 }
 /**
@@ -63,50 +76,26 @@ function store(req, res) {
  * @returns {undefined}
  */
 function show(req, res) {
-    User.findOne({_id: req.params.id}, function (err, user) {
-        if (err) {
-            throw err;
-        }
-        return res.status(status.OK).send(user);
+    Superlier.findOne({_id: req.params.id}, function (err, superlier) {
+        if (!err)
+            res.send(superlier);
     });
 }
 /**
- * @date 28/4/2017
- * @function update password for admin
- * @param {type} req
- * @param {type} res
- * @returns {undefined}
- */
-function update(req, res) {
-    var salt = bcrypt.genSaltSync(10);
-    User.update({_id: req.params.id}, {
-        password: bcrypt.hashSync(req.body.new_password, salt)
-    }, function (err) {
-        if (err) {
-            throw err;
-        }
-        return res.status(status.OK).send({
-            msg: message.update_success
-        });
-    });
-
-}
-/**
- * @date 28/4/2014
- * @fuction delete user admin by id
+ * 
  * @param {type} req
  * @param {type} res
  * @returns {undefined}
  */
 function destroy(req, res) {
-    User.remove({_id: req.params.id}, function (err) {
-        if (err) {
-            throw err;
-        } else {
-            res.status(status.OK).send({
-                msg: message.delete_success
+    Superlier.remove({_id: req.params.id}, function (err) {
+        if (err)
+            return res.status(status.BAD_REQUEST).send({
+                msg: error.set(err)
             });
-        }
+        res.send({
+            msg: message.delete_success,
+        });
     });
 }
 module.exports = router;

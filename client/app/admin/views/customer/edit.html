@@ -1,0 +1,31 @@
+<div div class="container" ng-controller="editCategory">
+    <form class="form-horizontal form-label-left" name="frm_edit" novalidate ng-submit="edit()">
+        <div class="panel panel-default panel_margin">
+            <div class="panel-heading"><label class="black">Cập nhật danh mục</label></div>
+            <div class="panel-body">
+                <div class="form-group" ng-class="{'has-error': (frm_edit.name.$touched && frm_edit.name.$invalid) || (frm_edit.$submitted && frm_edit.name.$invalid)}">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Tên </label>
+                    <div class="col-md-9 col-sm-9 col-xs-12" >
+                        <input type="name" class="form-control"  name="name" required ng-model="category.name" placeholder="Tên">
+                        <div ng-messages="frm_edit.name.$error" ng-show="frm_edit.name.$touched || frm_edit.$submitted">
+                            <span class="error" ng-message="required">Vui lòng nhập danh mục</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': (frm_edit.description.$touched && frm_edit.description.$invalid) || (frm_edit.$submitted && frm_edit.description.$invalid)}">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.description}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12" >
+                        <textarea class="form-control" rows="5" name="description" required ng-model="category.description" placeholder="{{lable.description}}"></textarea>
+                        <div ng-messages="frm_edit.description.$error" ng-show="frm_edit.description.$touched || frm_edit.$submitted">
+                            <span class="error" ng-message="required">Vui lòng nhập mô tả</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <a class="btn btn-default" href="#admin/category">{{lable.cancel}}</a>
+                <button class="btn btn-success" type="submit">{{lable.change}}</a>
+            </div>
+        </div>
+    </form>
+</div>

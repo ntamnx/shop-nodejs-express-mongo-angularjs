@@ -1,0 +1,52 @@
+<div div class="container" ng-controller="addSuperlier">
+    <div class="panel panel-default panel_margin">
+        <div class="panel-heading"><label class="black">{{lable.add_new}}</label></div>
+        <div class="panel-body">
+            <form class="form-horizontal form-label-left" name="frm_add" novalidate ng-submit="add()">
+                <div class="form-group" ng-class="{'has-error': (frm_add.name.$touched && frm_add.name.$invalid) || (frm_add.name.$invalid && frm_add.$submitted) }">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Tên</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" name="name" ng-model="superlier.name" placeholder="{{lable.name}}" required>
+                        <div ng-messages="frm_add.name.$error" ng-show="frm_add.name.$touched || frm_add.$submitted">
+                            <span class="error" ng-message="required">{{lable.input_name}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': (frm_add.address.$touched && frm_add.address.$invalid) || (frm_add.address.$invalid && frm_add.$submitted) }">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.address}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" name="address" ng-model="superlier.address" placeholder="{{lable.address}}" required>
+                        <div ng-messages="frm_add.address.$error" ng-show="frm_add.address.$touched || frm_add.$submitted">
+                            <span class="error" ng-message="required">{{lable.input_address}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': (frm_add.phone.$touched && frm_add.phone.$invalid) || (frm_add.phone.$invalid && frm_add.$submitted) }">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.phone}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" name="phone" ng-model="superlier.phone" placeholder="{{lable.phone}}" required>
+                        <div ng-messages="frm_add.phone.$error" ng-show="frm_add.phone.$touched || frm_add.$submitted">
+                            <span class="error" ng-message="required">{{lable.input_phone}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': (frm_add.description.$touched && frm_add.description.$invalid) || (frm_add.description.$invalid && frm_add.$submitted) }">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.description}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <textarea type="text"  class="form-control" name="description" ng-model="superlier.description" placeholder="{{lable.description}}" rows="5"></textarea>
+                        <div ng-messages="frm_add.description.$error" ng-show="frm_add.description.$touched || frm_add.$submitted">
+                            <span class="error" ng-message="required">{{lable.input_description}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                    <div class="col-md-12 col-sm-12 col-xs-12 ">
+                        <a  class="btn btn-default" href="#admin/new">{{lable.cancel}}</a>
+                        <button type="submit" class="btn btn-success">{{lable.add}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

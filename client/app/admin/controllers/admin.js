@@ -11,33 +11,33 @@
 
 /* global admin, app, BASE_PATH_API, message, BASE_PATH_API_ADMIN, transformRequestToUrlEncoded */
 
-admin.curentPageAdmin = 1;
-admin.keyWordSearchIndexAdmin = '';
-app.controller('indexAdminController', function ($scope, $http, $filter, $window, Flash) {
+admin.pageAdmin = 1;
+admin.keywordAdmin = '';
+app.controller('indexAdmin', function ($scope, $http, $filter, $window, Flash) {
     setActiveMenuFirst(1);
     var getData = function () {
         $('#spinner_loading').removeClass('hide');
         $http.get(BASE_PATH_API + 'member/index').then(function (data) {
             $scope.admins = data.data;
-            $scope.keyword = admin.keyWordSearchIndexAdmin;
-            paginate($scope, $scope.admins, admin.curentPageAdmin);
+            $scope.keyword = admin.keywordAdmin;
+            paginate($scope, $scope.admins, admin.pageAdmin);
             $('#spinner_loading').addClass('hide');
             $scope.$watch('keyword', function (newValue, oldValue) {
-                admin.keyWordSearchIndexAdmin = newValue;
+                admin.keywordAdmin = newValue;
                 var newData = $filter('customSearch')(data.data, newValue, $scope.fileds);
                 $scope.pageChangeSearch = function (page) {
-                    admin.curentPageAdmin = 1;
+                    admin.pageAdmin = 1;
                 };
                 $scope.admins = newData;
-                paginate($scope, $scope.admins, admin.curentPageAdmin);
+                paginate($scope, $scope.admins, admin.pageAdmin);
             });
             $scope.pageChange = function (page) {
-                admin.curentPageAdmin = page;
+                admin.pageAdmin = page;
             };
         });
     };
     getData();
-    $scope.deleteAdmin = function (id) {
+    $scope.delete = function (id) {
         if ($window.confirm(message.confirm_delete)) {
             if (JSON.parse($window.sessionStorage.auth_user).id === id) {
                 Flash.create('error', message.cannot_delete_myself);
@@ -61,14 +61,14 @@ app.controller('indexAdminController', function ($scope, $http, $filter, $window
 /**
  * 
  */
-app.controller('addAdminController', function ($scope, $location, Flash, $http) {
+app.controller('addAdmin', function ($scope, $location, Flash, $http) {
     setActiveMenuLast(1);
-    $scope.addUser = function () {
-        if ($scope.frm_addUser.$valid) {
+    $scope.add = function () {
+        if ($scope.frm_add.$valid) {
             $('#spinner_loading').removeClass('hide');
             $http({
                 method: "POST",
-                url: BASE_PATH_API + "member/add",
+                url: BASE_PATH_API + "member/store",
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
@@ -88,7 +88,7 @@ app.controller('addAdminController', function ($scope, $location, Flash, $http) 
 /**
  * 
  */
-app.controller('editAdminController', function ($scope, $location, Flash, $http, $routeParams, $window) {
+app.controller('editAdmin', function ($scope, $location, Flash, $http, $routeParams, $window) {
     setActiveMenuFirst(1);
     if (JSON.parse($window.sessionStorage.auth_user).id === $routeParams.id) {
         Flash.create('error', message.cannot_update_myself);
@@ -97,8 +97,8 @@ app.controller('editAdminController', function ($scope, $location, Flash, $http,
     $http.get(BASE_PATH_API + 'member/show/' + $routeParams.id).then(function (data) {
         $scope.userAdmin = data.data;
     });
-    $scope.editAdmin = function () {
-        if ($scope.frm_edit_user.$valid) {
+    $scope.edit = function () {
+        if ($scope.frm_edit.$valid) {
             $('#spinner_loading').removeClass('hide');
             $http({
                 method: "PUT",

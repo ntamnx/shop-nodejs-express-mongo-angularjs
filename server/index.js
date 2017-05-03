@@ -33,3 +33,5 @@ require('./config/passport')(passport);
 app.use('/api/auth', require('./app/controller/auth'));
 app.use('/api/member', require('./app/controller/member'));
 app.use('/api/category', require('./app/controller/category'));
+app.use('/api/superlier', require('./app/controller/superlier'));
+app.use('/api/customer', require('./app/controller/customer'));
