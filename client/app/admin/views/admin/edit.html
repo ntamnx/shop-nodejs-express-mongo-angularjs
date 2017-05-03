@@ -1,0 +1,44 @@
+<div ng-controller="editAdminController">
+    <form class="form-horizontal form-label-left" name="frm_edit_user" novalidate ng-submit="editAdmin()">
+        <div class="panel panel-default panel_margin">
+            <div class="panel-heading"><label class="black">{{lable.add_new_user}}</label></div>
+            <div class="panel-body">
+                <div class="form-group" ng-class="{'has-error': (frm_edit_user.email.$touched && frm_edit_user.email.$invalid) || (frm_edit_user.$submitted && frm_edit_user.email.$invalid)}">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.email}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12" >
+                        <input type="email" class="form-control"  name="email" required ng-model="userAdmin.email" placeholder="{{lable.email}}">
+                        <div ng-messages="frm_edit_user.email.$error" ng-show="frm_edit_user.email.$touched || frm_edit_user.$submitted">
+                            <span class="error" ng-message="required">{{lable.input_email}}</span>
+                            <span class="error" ng-message="email">{{lable.input_email_error}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': (frm_edit_user.password.$touched && frm_edit_user.password.$invalid) || (frm_edit_user.$submitted && frm_edit_user.password.$invalid)}">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.password}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12" >
+                        <input type="password" class="form-control" ng-minlength="6" name="password" autocomplete="new-password" required ng-model="userAdmin.new_password" placeholder="{{lable.password}}">
+                        <div ng-messages="frm_edit_user.password.$error" ng-show="frm_edit_user.password.$touched || frm_edit_user.$submitted">
+                            <span class="error" ng-message="required">{{lable.input_password}}</span>
+                            <span class="error" ng-message="minlength">{{lable.input_password_min_length}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': (frm_edit_user.confirm_password.$touched && frm_edit_user.confirm_password.$invalid) || (frm_edit_user.$submitted && frm_edit_user.confirm_password.$invalid)}">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.password_confirm}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12" >
+                        <input type="password" class="form-control"  compare-to="userAdmin.new_password" ng-minlength="6" name="confirm_password" required ng-model="userAdmin.confirm_password" placeholder="{{lable.password_confirm}}">
+                        <div ng-messages="frm_edit_user.confirm_password.$error" ng-show="frm_edit_user.confirm_password.$touched || frm_edit_user.$submitted">
+                            <span class="error" ng-message="required">{{lable.input_password_confirm}}</span>
+                            <span class="error" ng-message="compareTo">{{lable.input_password_confirm_compare_to}}</span>
+                            <span class="error" ng-message="minlength">{{lable.input_password_confirm_min_lenngth}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <a class="btn btn-default" href="#admin/admin">{{lable.cancel}}</a>
+                <button class="btn btn-success" type="submit">{{lable.change}}</a>
+            </div>
+        </div>
+    </form>
+</div>

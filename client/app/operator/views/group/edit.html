@@ -1,0 +1,219 @@
+<div div class="container" ng-controller="editGroupController">
+    <div class="panel panel-default panel_margin">
+        <div class="panel-heading"><label class="black">{{lable.edit_group}}</label></div>
+        <div class="panel-body">
+            <form class="form-horizontal form-label-left" name="frm_edit_group" novalidate ng-submit="editGroup()">
+                <div class="form-group" ng-class="{'has-error': (frm_edit_group.name.$touched && frm_edit_group.name.$invalid) || (frm_edit_group.name.$invalid && frm_edit_group.$submitted) }">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.name_group}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="name"  class="form-control" name="name"  ng-model="group.name" placeholder="{{lable.name_group}}" required>
+                        <div ng-messages="frm_edit_group.name.$error" ng-show="frm_edit_group.name.$touched || frm_edit_group.$submitted">
+                            <span class="error" ng-message="required">{{lable.input_group}}</span>
+                          
+                        </div>
+                    </div>
+                </div>
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                    <div class="col-md-9 col-sm-9 col-xs-12 ">
+                        <a  class="btn btn-default" ng-click="back()">{{lable.back}}</a>
+                        <button type="submit" class="btn btn-success">{{lable.change}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--view group-->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <ul class="nav nav-tabs" ng-init="tab = 1">
+                <li ng-class="tab == 1 ? 'active' : ''" ng-click="tab = 1"><a href="" class="black">{{lable.list_supervisor}}</a></li>
+                <li ng-class="tab == 2 ? 'active' : ''" ng-click="tab = 2"><a href="" class="black">{{lable.add_supervisor}}</a></li>
+            </ul>
+        </div>
+        <div class="panel-body">
+            <div ng-show="tab == 1">
+                <div class="row">
+                    <div class="col-sm-8 pull-right">
+                        <form class="navbar-form navbar-left pull-right" role="search"  >
+                            <div class="form-group">
+                                <input type="text" class="form-control" ng-model="keywordListSupervisor" ng-change="pageChangeSearchListSupervisor()"  placeholder="{{lable.search}}" >
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="width-5">{{lable.stt}}</th>
+                            <th class="width-17-5">{{lable.name_supervisor}}</th>
+                            <th class="width-17-5">{{lable.email}}</th>
+                            <th class="width-20">{{lable.address}}</th>
+                            <th class="width-10">{{lable.phone}}</th>
+                            <th class="width-10">{{lable.sex}}</th>
+                            <th class="width-15">{{lable.birth}}</th>
+                            <th class="width-5">{{lable.delete}}</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-init="filedsListSupervisor = ['name', 'email', 'phone', 'address', 'sex']">
+                        <tr ng-repeat="supervisor in supervisors.slice(((curentPageSupervisorGroup - 1) * itemsPerPage), ((curentPageSupervisorGroup) * itemsPerPage))| customSearch: keywordListSupervisor : filedsListSupervisor">
+                            <td>{{$index + ((curentPageSupervisorGroup - 1) * itemsPerPage) + 1}}</td>
+                            <td>{{supervisor.name}}</td>
+                            <td>{{supervisor.email}}</td>
+                            <td>{{supervisor.address}}</td>
+                            <td>{{supervisor.phone}}</td>
+                            <td>{{supervisor.sex}}</td>
+                            <td>{{supervisor.birth * 1000| date : 'yyyy-MM-dd'}}</td>
+                            <td><a class="btn btn-danger btn-xs" ng-click="deleteSupervisorOfGroup(supervisor._id, group._id)">{{lable.delete}}</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div ng-show="totalItemsSupervisor > itemsPerPage">
+                    <pagination total-items="totalItemsSupervisor" first-text="&laquo;&laquo;" previous-text="&laquo;" next-text="&raquo;"  last-text="&raquo;&raquo;" max-size="maxsize" boundary-links="true" ng-model="curentPageSupervisorGroup" ng-change="changePageListSupervisor(curentPageSupervisorGroup)"  class="pagination-sm" items-per-page="itemsPerPage"></pagination>
+                </div>
+            </div>
+            <div ng-show="tab == 2">
+                <div class="row">
+                    <div class="col-sm-8 pull-right">
+                        <form class="navbar-form navbar-left pull-right" role="search"  >
+                            <div class="form-group">
+                                <input type="text" class="form-control" ng-model="keywordAddSupervisor" ng-change="pageChangeSearchSupervisorAdd()"  placeholder="{{lable.search}}" >
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="width-5">{{lable.stt}}</th>
+                            <th class="width-15">{{lable.name_supervisor}}</th>
+                            <th class="width-17-5">{{lable.email}}</th>
+                            <th class="width-20">{{lable.address}}</th>
+                            <th class="width-10">{{lable.phone}}</th>
+                            <th class="width-10">{{lable.sex}}</th>
+                            <th class="width-15">{{lable.birth}}</th>
+                            <th class="width-7-5">{{lable.add}}</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-init="filedsListSupervisorAdd = ['name', 'email', 'phone', 'address', 'sex']">
+                        <tr ng-repeat="addSupervisor in addSupervisors.slice(((curentPageSupervisorGroupToAdd - 1) * itemsPerPage), ((curentPageSupervisorGroupToAdd) * itemsPerPage))| customSearch: keywordAddSupervisor : filedsListSupervisorAdd">
+                            <td>{{$index + ((curentPageSupervisorGroupToAdd - 1) * itemsPerPage) + 1}}</td>
+                            <td>{{addSupervisor.name}}</td>
+                            <td>{{addSupervisor.email}}</td>
+                            <td>{{addSupervisor.address}}</td>
+                            <td>{{addSupervisor.phone}}</td>
+                            <td>{{addSupervisor.sex}}</td>
+                            <td>{{addSupervisor.birth * 1000| date : 'yyyy-MM-dd'}}</td>
+                            <td><a class="btn btn-success btn-xs" ng-click="addSupervisorToGroup(addSupervisor._id, group._id)">{{lable.add}}</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div ng-show="totalItemsAddSupervisor > itemsPerPage">
+                    <pagination total-items="totalItemsAddSupervisor" first-text="&laquo;&laquo;" previous-text="&laquo;" next-text="&raquo;"  last-text="&raquo;&raquo;" max-size="maxsize" boundary-links="true" ng-model="curentPageSupervisorGroupToAdd" ng-change="changePageSupervisorAdd(curentPageSupervisorGroupToAdd)" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--view student-->
+    <!--view student-->
+    <!--view student-->
+    <!--view student-->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <ul class="nav nav-tabs" ng-init="tab_student = 1">
+                <li ng-class="tab_student == 1 ? 'active' : ''" ng-click="tab_student = 1"><a href="" class="black">{{lable.list_student}}</a></li>
+                <li ng-class="tab_student == 2 ? 'active' : ''" ng-click="tab_student = 2"><a href="" class="black">{{lable.add_student}}</a></li>
+            </ul>
+        </div>
+        <div class="panel-body">
+            <div ng-show="tab_student == 1">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                        </div>
+                        <div class="col-sm-8 pull-right"  >
+                            <form class="navbar-form navbar-left pull-right" role="search"  >
+                                <div class="form-group">
+                                    <input type="text" class="form-control" ng-model="keywordListStudent" ng-change="searchListStudent()"  placeholder="{{lable.search}}" >
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="width-5">{{lable.stt}}</th>
+                                <th class="width-15">{{lable.name_student}}</th>
+                                <th class="width-15">{{lable.email}}</th>
+                                <th class="width-25">{{lable.address}}</th>
+                                <th class="width-15">{{lable.phone}}</th>
+                                <th class="width-10">{{lable.sex}}</th>
+                                <th class="width-15">{{lable.birth}}</th>
+                                <th class="width-10">{{lable.delete}}</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-init="filedsListStudent = ['name', 'email', 'phone', 'address', 'sex']">
+                            <tr ng-repeat="student in students.slice(((curentPagelistStudent - 1) * itemsPerPage), ((curentPagelistStudent) * itemsPerPage))| customSearch: keywordListStudent : filedsListStudent">
+                                <td>{{$index + ((curentPagelistStudent - 1) * itemsPerPage) + 1}}</td>
+                                <td>{{student.name}}</td>
+                                <td>{{student.email}}</td>
+                                <td>{{student.address}}</td>
+                                <td>{{student.phone}}</td>
+                                <td>{{student.sex}}</td>
+                                <td>{{student.birth * 1000| date : 'yyyy-MM-dd'}}</td>
+                                <td><a class="btn btn-xs btn-danger" ng-click="deleteStudentOfGroup(student._id, group._id)" >{{lable.delete}}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-show="totalItemsStudent > itemsPerPage">
+                        <pagination total-items="totalItemsStudent" first-text="&laquo;&laquo;" previous-text="&laquo;" next-text="&raquo;"  last-text="&raquo;&raquo;" max-size="maxsize" boundary-links="true" ng-model="curentPagelistStudent" ng-change="changePageListStudent(curentPagelistStudent)"  class="pagination-sm" items-per-page="itemsPerPage"></pagination>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="tab_student == 2">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                        </div>
+                        <div class="col-sm-8 pull-right"  >
+                            <form class="navbar-form navbar-left pull-right" role="search"  >
+                                <div class="form-group">
+                                    <input type="text" class="form-control" ng-model="keywordAddStudent" ng-change="searchListAddStudent()"  placeholder="{{lable.search}}" >
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="width-5">{{lable.stt}}</th>
+                                <th class="width-15">{{lable.name_student}}</th>
+                                <th class="width-15">{{lable.email}}</th>
+                                <th class="width-25">{{lable.address}}</th>
+                                <th class="width-15">{{lable.phone}}</th>
+                                <th class="width-10">{{lable.sex}}</th>
+                                <th class="width-15">{{lable.birth}}</th>
+                                <th class="width-10">{{lable.add}}</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-init="filedsListStudentAdd = ['name', 'email', 'phone', 'address', 'sex']">
+                            <tr ng-repeat="addStudent in addStudents.slice(((curentPageAddStudentGroupToAdd - 1) * itemsPerPage), ((curentPageAddStudentGroupToAdd) * itemsPerPage))|  customSearch: keywordAddStudent : filedsListStudentAdd">
+                                <td>{{$index + ((curentPageAddStudentGroupToAdd - 1) * itemsPerPage) + 1}}</td>
+                                <td>{{addStudent.name}}</td>
+                                <td>{{addStudent.email}}</td>
+                                <td>{{addStudent.address}}</td>
+                                <td>{{addStudent.phone}}</td>
+                                <td>{{addStudent.sex}}</td>
+                                <td>{{addStudent.birth * 1000| date : 'yyyy-MM-dd'}}</td>
+                                <td><a class="btn btn-xs btn-success" ng-click="addStudentToGroup(addStudent._id, group._id)" >{{lable.add}}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-show="totalItemsAddStudent > itemsPerPage">
+                        <pagination total-items="totalItemsAddStudent" first-text="&laquo;&laquo;" previous-text="&laquo;" next-text="&raquo;"  last-text="&raquo;&raquo;" max-size="maxsize" boundary-links="true" ng-model="curentPageAddStudentGroupToAdd" ng-change="pageAddStudent(curentPageAddStudentGroupToAdd)"  class="pagination-sm" items-per-page="itemsPerPage"></pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>

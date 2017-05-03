@@ -1,0 +1,98 @@
+<div class="container" id="homePage" ng-controller="homeController">
+    <div class="panel panel-default panel_margin">
+        <div class="panel-heading black"><label class="title">{{lable.home}}</label></div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-3" ng-if="auth_user.level != 1">
+                    <a href="#admin/student" >
+                        <div class="panel panel-primary">
+                            <div class="panel-heading text-center">
+                                <div class="group-button-student">
+                                    <label class="btn-group-home">{{lable.student}} </label>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-3" ng-if="auth_user.level != 1">
+                    <a href="#admin/operator">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading text-center">
+                                <div class="group-button-student">
+                                    <label class=" btn-group-home">{{lable.operator}} </label>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-3" ng-if="auth_user.level != 1">
+                    <a href="#admin/supervisor">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading text-center">
+                                <div class="group-button-student">
+                                    <label class=" btn-group-home">{{lable.supervisor}} </label>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-3" ng-if="auth_user.level != 1">
+                    <a href="#admin/resource">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading text-center">
+                                <div class="group-button-student">
+                                    <label class="btn-group-home">{{lable.resource}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-3">
+                    <a href="#admin/new">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading text-center">
+                                <div class="group-button-student">
+                                    <label class=" btn-group-home">{{lable.new}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-3" ng-if="auth_user.level != 1">
+                    <a href="#admin/upgrade">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading text-center">
+                                <div class="group-button-student">
+                                    <label class=" btn-group-home">{{lable.upgrade}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-3" ng-if="auth_user.level == 3">
+                    <a href="#admin/system/payment">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading text-center">
+                                <div class="group-button-student">
+                                    <label class=" btn-group-home">{{lable.system}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-3" ng-if="auth_user.level == 3">
+                    <a href="#admin/admin">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading text-center">
+                                <div class="group-button-student">
+                                    <label class=" btn-group-home">{{lable.admin}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

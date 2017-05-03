@@ -1,0 +1,34 @@
+<div class="container" ng-controller="homeController" id="homePage">
+    <div class="panel panel-default panel_margin">
+        <div class="panel-heading"><label class="black">{{lable.list_group}}</label></div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-3" ng-repeat="group in groups.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)">
+                    <a ng-click="studentNotComment($index + ((currentPage - 1) * itemsPerPage))" class="cursor-pointer" >
+                        <div class="panel panel-primary panel_height text-center">
+                            <label class="btn-group-home-1 font_size_home">{{group.name}} </label> <span ng-show="group.no_comment != 0" class=" icon_bag_fomart badge bg-red icon-bag text-danger">{{group.no_comment}}</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            </a>
+            <div class="clearfix"></div>
+            <div ng-show="totalItems > itemsPerPage">
+                <pagination total-items="totalItems" first-text="&laquo;&laquo;" previous-text="&laquo;" next-text="&raquo;"  last-text="&raquo;&raquo;" max-size="maxsize" boundary-links="true" ng-model="currentPage"  class="pagination-sm" items-per-page="itemsPerPage"></pagination>
+            </div>
+        </div>
+        <div class="ln_solid "></div>
+        <div class="panel panel-default" ng-repeat="student in groupStudent">
+            <div class="panel-heading"><label class="title">{{group_name}} - {{student.name}} - {{student.email}} </label></div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <textarea class="form-control" rows="3" ng-model="student.description" placeholder="{{lable.comment}}"></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" ng-click="addComentStudent(student._id, student.description)">{{lable.comment}}</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<div div class="container" ng-controller="addCodePaymentController">
+    <div class="panel panel-default panel_margin">
+        <div class="panel-heading"><label class="black">{{lable.add_new_supervisor}}</label></div>
+        <div class="panel-body"> 
+            <div class="div_qr_code">
+                <label class="col-xs-12 text-center">{{lable.code}} : {{payment.code}}</label>
+            </div>
+            <div class="ln_solid"></div>
+            <label class="col-xs-12 text-center">{{lable.qr_code}} </label>
+            <div class="col-xs-12">
+                <div id="show_qrcode"></div>
+            </div>
+            <!--<div class="ln_solid"></div>-->
+            <div class="form-group">
+                <div class="col-md-9 col-sm-9 col-xs-12 ">
+                    <a  class="btn btn-default" href="#admin/system/payment">{{lable.back}}</a>
+                    <a  class="btn btn-primary" href="#/admin/system/payment/print_code">{{lable.print}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{lable.comment}}</h5>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <li>Điều khoản sử dụng hệ thống lần thứ nhất.</li>
+                        <li>Điều khoản sử dụng hệ thống thứ 2</li>
+                        <li>Điều khoản sử dụng hệ thống thứ ba</li>
+                        <li>Điều khoản sử dụng hệ thống thứ 4</li>
+                        <li>Điều khoản sử dụng hệ thống thứ 5</li>
+                        <li>Điều khoản sử dụng hệ thống thứ 6</li>
+                        <li>Điều khoản sử dụng hệ thống thứ 7</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="back()">{{lable.back}}</button>
+                    <button type="submit" class="btn btn-primary" ng-click="createCode()" >{{lable.ok}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

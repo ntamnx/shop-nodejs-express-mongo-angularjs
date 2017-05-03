@@ -1,0 +1,7 @@
+<div class="container" ng-controller="executePrintData"  >
+    <div ng-repeat="x in [1, 2, 3, 4, 5]">
+        <div ng-include="'views/students/element/cv.html'" ng-class="$index != 0 ? 'print_new_page' : ''"></div>
+        <div ng-include="'views/students/element/result.html'" ></div>
+        <div ng-include="'views/students/element/comment.html'"></div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+<div div class="container" ng-controller="detailSupervisorController">
+    <div class="panel panel-default panel_margin">
+        <div class="panel-heading"><label class="black">{{lable.info_operator}}</label></div>
+        <div class="panel-body">
+            <form class="form-horizontal form-label-left">
+                <div class="form-group" >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.name_operator}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" disabled ng-model="infoSupervisor.name">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12" >{{lable.address}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" disabled ng-model="infoSupervisor.address">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.email}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" disabled ng-model="infoSupervisor.email">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.phone}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" disabled ng-model="infoSupervisor.phone">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.curator}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" disabled ng-model="infoSupervisor.curator">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12" >{{lable.deputy}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" disabled ng-model="infoSupervisor.deputy">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div> 
+    <div class="panel panel-default">
+        <div class="panel-heading"><label class="tile">{{lable.info_user}}</label></div>
+        <div class="panel-body">
+            <form class="form-horizontal form-label-left">
+                <div class="form-group" >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.name_user}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" disabled ng-model="userSupervisor.name"> 
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.email}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" disabled ng-model="userSupervisor.email">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.sex}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="radio" name="sex" value="boy" ng-model="userSupervisor.sex" disabled/> {{lable.male}}
+                        <input type="radio" name="sex" value="girl" ng-model="userSupervisor.sex" disabled/> {{lable.female}}
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.address}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" disabled ng-model="userSupervisor.address">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.phone}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" disabled ng-model="userSupervisor.phone">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.birth}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" disabled value="{{userSupervisor.birth * 1000 | date:'yyyy-MM-dd'}}">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-default"  href="#admin/supervisor">{{lable.back}}</a>
+        </div>
+    </div>
+</div>

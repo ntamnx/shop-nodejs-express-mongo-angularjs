@@ -1,0 +1,69 @@
+<div div class="container" ng-controller="addStudentController">
+    <div class="panel panel-default panel_margin">
+        <div class="panel-heading ">
+            <label class="black">{{lable.send_request}}</label>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-8">
+                    <form class="form-horizontal form-label-left" name="frm_add_student" novalidate ng-submit="addStudent()">
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <div class="form-group" ng-class="{'has-error': (frm_add_student.email.$touched && frm_add_student.email.$invalid) || (frm_add_student.email.$invalid && frm_add_student.$submitted) }">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.email}}</label>
+                                    <div class="col-md-10 col-sm-10 col-xs-12">
+                                        <input type="email"  class="form-control" name="email" ng-model="student.email" placeholder="{{lable.email}}" required>
+                                        <div ng-messages="frm_add_student.email.$error" ng-show="frm_add_student.email.$touched || frm_add_student.$submitted">
+                                            <span class="error" ng-message="required">{{lable.input_email}}</span>
+                                            <span class="error" ng-message="email">{{lable.input_email_error}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success">{{lable.add}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-4 pull-right"  >
+                    <form class="navbar-form navbar-left pull-right" role="search"  >
+                        <div class="form-group">
+                            <input type="text" class="form-control" ng-model="keyword" ng-change="pageChangeSearch(currentPage)" placeholder="{{lable.search}}" >
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="width-5">{{lable.stt}}</th>
+                        <th class="width-15">{{lable.name_student}}</th>
+                        <th class="width-20">{{lable.email}}</th>
+                        <th class="width-25">{{lable.address}}</th>
+                        <th class="width-10">{{lable.sex}}</th>
+                        <th class="width-15">{{lable.birth}}</th>
+                        <th class="width-10">{{lable.sending}}</th>
+
+                    </tr>
+                </thead>
+                <tbody ng-init="fileds = ['name', 'email', 'address', 'sex']">
+                    <tr ng-repeat="student in students.slice(((currentPage - 1) * itemsPerPage), ((currentPage) * itemsPerPage)) |  customSearch: keyword : fileds">
+                        <td>{{$index + 1 + ((currentPage - 1) * itemsPerPage)}}</td>
+                        <td>{{student.students.name}}</td>
+                        <td>{{student.students.email}}</td>
+                        <td>{{student.students.address}}</td>
+                        <td>{{student.students.sex}}</td>
+                        <td>{{student.students.birth * 1000| date : 'yyyy-MM-dd'}}</td>
+                        <td><a class="btn btn-xs btn-danger" ng-click="cancelStudent(student._id)">{{lable.cancel}}</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div ng-show="totalItems > itemsPerPage">
+                <pagination total-items="totalItems" first-text="&laquo;&laquo;" previous-text="&laquo;" next-text="&raquo;"  last-text="&raquo;&raquo;" max-size="maxsize" boundary-links="true" ng-model="currentPage" ng-change="pageChange(currentPage)" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
+            </div>
+        </div>
+    </div>
+</div>

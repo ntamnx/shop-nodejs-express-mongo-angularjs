@@ -1,0 +1,34 @@
+<div div class="container" ng-controller="editResourceController">
+    <div class="panel panel-default panel_margin">
+        <div class="panel-heading"><label class="black">{{lable.update_resource}}</label></div>
+        <div class="panel-body">
+            <form class="form-horizontal form-label-left" enctype="multipart/form-data" name="frm_update_resource" novalidate ng-submit="updateResource()">
+                <div class="form-group" ng-class="{'has-error': (frm_update_resource.name.$touched && frm_update_resource.name.$invalid) || (frm_update_resource.name.$invalid && frm_update_resource.$submitted) }">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.name_resource}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" class="form-control" name="name" ng-model="resource.name" placeholder="{{lable.name_resource}}" required>
+                        <div ng-messages="frm_update_resource.name.$error" ng-show="frm_update_resource.name.$touched || frm_update_resource.$submitted">
+                            <span class="error" ng-message="required">{{lable.input_name_resource}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group"  >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.file}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="file" style="margin-top: 6px"  name="file_data" file-model="file" placeholder="{{lable.name_resource}}" >
+                    </div>
+                </div>
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                    <div class="col-md-9 col-sm-9 col-xs-12 ">
+                        <a  class="btn btn-default" href="#admin/resource">{{lable.cancel}}</a>
+                        <button type="submit" class="btn btn-success">{{lable.change}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="swaper_progress_bar" class="hide">
+            <div id="progress-circle" ></div>
+        </div>
+    </div>
+</div>

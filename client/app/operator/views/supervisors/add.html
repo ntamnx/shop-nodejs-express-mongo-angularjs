@@ -1,0 +1,103 @@
+<div div class="container" ng-controller="addSupervisorController">
+    <form class="form-horizontal form-label-left" name="frm_addUser" novalidate ng-submit="addSupervisor()">
+        <div class="panel panel-default panel_margin">
+            <div class="panel-heading"><label class="black">{{lable.add_new_supervisor}}</label></div>
+            <div class="panel-body">
+                <div class="form-group" ng-class="{'has-error': (frm_addUser.name.$touched && frm_addUser.name.$invalid) || (frm_addUser.$submitted && frm_addUser.name.$invalid)}">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.name_user}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12" >
+                        <input type="text" class="form-control"  name="name" required ng-model="userSupervisor.name" placeholder="{{lable.name_user}}">
+                        <div ng-messages="frm_addUser.name.$error" ng-show="frm_addUser.name.$touched || frm_addUser.$submitted">
+                            <span class="error" ng-message="required">{{lable.input_user_name}}</span>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': (frm_addUser.email.$touched && frm_addUser.email.$invalid) || (frm_addUser.$submitted && frm_addUser.email.$invalid)}">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.email}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12" >
+                        <input type="email" class="form-control"   name="email" required ng-model="userSupervisor.email" placeholder="{{lable.email}}">
+                        <div ng-messages="frm_addUser.email.$error" ng-show="frm_addUser.email.$touched || frm_addUser.$submitted">
+                            <span class="error" ng-message="required">{{lable.input_email}}</span>
+                            <span class="error" ng-message="email">{{lable.input_email_error}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': (frm_addUser.address.$touched && frm_addUser.address.$invalid) || (frm_addUser.$submitted && frm_addUser.address.$invalid)}">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.address}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12" >
+                        <input type="text" class="form-control"  name="address" required ng-model="userSupervisor.address" placeholder="{{lable.address}}">
+                        <div ng-messages="frm_addUser.address.$error" ng-show="frm_addUser.address.$touched || frm_addUser.$submitted">
+                            <span class="error" ng-message="required">{{lable.input_address}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': (frm_addUser.phone.$touched && frm_addUser.phone.$invalid) || (frm_addUser.$submitted && frm_addUser.phone.$invalid)}">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.phone}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12" >
+                        <input type="text" class="form-control" ng-pattern="/^0[1-9]{1}[0-9]{8,9}$/"  name="phone" required ng-model="userSupervisor.phone" placeholder="{{lable.phone}}">
+                        <div ng-messages="frm_addUser.phone.$error" ng-show="frm_addUser.phone.$touched || frm_addUser.$submitted">
+                            <span class="error" ng-message="pattern">{{lable.input_phone_error}}</span>
+                            <span class="error" ng-message="required">{{lable.input_phone}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': (frm_addUser.birth.$touched && frm_addUser.birth.$invalid) || (frm_addUser.$submitted && frm_addUser.birth.$invalid)}">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.birth}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12" >
+                        <input type="text" id="datetimepicker"  class="form-control"  name="birth" required ng-model="userSupervisor.birth_date" placeholder="{{lable.birth}}">
+                        <div ng-messages="frm_addUser.birth.$error" ng-show="frm_addUser.birth.$touched || frm_addUser.$submitted">
+                            <span class="error" ng-message="required">{{lable.input_birth}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': (frm_addUser.sex.$touched && frm_addUser.sex.$invalid) || (frm_addUser.$submitted && frm_addUser.sex.$invalid)}">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.sex}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12" >
+                        <input type="radio" name="sex" ng-model="userSupervisor.sex" value="boy" required> {{lable.male}}
+                        <input type="radio" name="sex" ng-model="userSupervisor.sex" value="girl" required> {{lable.female}}
+                        <div ng-messages="frm_addUser.sex.$error" ng-show="frm_addUser.sex.$touched || frm_addUser.$submitted">
+                            <span class="error" ng-message="required">{{lable.input_sex}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': (frm_addUser.experience.$touched && frm_addUser.experience.$invalid) || (frm_addUser.$submitted && frm_addUser.experience.$invalid)}">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.experience}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12" >
+                        <input type="text"   class="form-control" ng-pattern = "/^[0-9]+(\.[0-9]{1,2})?$/"  name="experience" required ng-model="userSupervisor.experience" placeholder="{{lable.experience}}">
+                        <div ng-messages="frm_addUser.experience.$error" ng-show="frm_addUser.experience.$touched || frm_addUser.$submitted">
+                            <span class="error" ng-message="required">{{lable.input_experience}}</span>
+                            <span class="error" ng-message="pattern">{{lable.input_experience_error}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': (frm_addUser.password.$touched && frm_addUser.password.$invalid) || (frm_addUser.$submitted && frm_addUser.password.$invalid)}">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.password}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12" >
+                        <input type="password" class="form-control" autocomplete="new-password" ng-minlength="6" name="password" required ng-model="userSupervisor.password" placeholder="{{lable.password}}">
+                        <div ng-messages="frm_addUser.password.$error" ng-show="frm_addUser.password.$touched || frm_addUser.$submitted">
+                            <span class="error" ng-message="required">{{lable.input_password}}</span>
+                            <span class="error" ng-message="minlength">{{lable.input_password_min_length}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': (frm_addUser.confirm_password.$touched && frm_addUser.confirm_password.$invalid) || (frm_addUser.$submitted && frm_addUser.confirm_password.$invalid)}">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.password_confirm}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12" >
+                        <input type="password" class="form-control"   ng-minlength="6" compare-to="userSupervisor.password" name="confirm_password" required ng-model="userSupervisor.confirm_password" placeholder="{{lable.password_confirm}}">
+                        <div ng-messages="frm_addUser.confirm_password.$error" ng-show="frm_addUser.confirm_password.$touched || frm_addUser.$submitted">
+                            <span class="error" ng-message="required">{{lable.input_password_confirm}}</span>
+                            <span class="error" ng-message="minlength">{{lable.input_password_confirm_min_lenngth}}</span>
+                            <span class="error" ng-message="compareTo">{{lable.input_password_confirm_compare_to}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <a class="btn btn-default" href="#operator/supervisor">{{lable.cancel}}</a>
+                <button class="btn btn-success" type="submit">{{lable.add}}</a>
+            </div>
+        </div>
+    </form>
+</div>

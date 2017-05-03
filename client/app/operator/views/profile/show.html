@@ -1,0 +1,70 @@
+<div class="container" ng-controller="detailProfileController">
+    <div class="panel panel-default panel_margin">
+        <div class="panel-heading"><label class="black">{{lable.info_operator}}</label></div>
+        <div class="panel-body">
+            <form class="form-horizontal form-label-left">
+                <div class="form-group" >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.name_operator}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" disabled ng-model="infoOperator.name">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12" >{{lable.address}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" disabled ng-model="infoOperator.address">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.email}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" disabled ng-model="infoOperator.email">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.phone}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" disabled ng-model="infoOperator.phone">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.curator}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" disabled ng-model="infoOperator.curator">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12" >{{lable.deputy}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" disabled ng-model="infoOperator.deputy">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div> 
+    <div class="panel panel-default">
+        <div class="panel-heading"><label class="tile">{{lable.info_user}}</label></div>
+        <div class="panel-body">
+            <form class="form-horizontal form-label-left">
+                <div class="form-group" >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.email}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" disabled ng-model="userOperator.email">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12"> {{lable.name_user}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" disabled ng-model="userOperator.name"> 
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-default"  href="#/">{{lable.back}}</a>
+            <a class="btn btn-warning"  href="#operator/profile/edit">{{lable.change}}</a>
+            <a class="btn btn-primary"  href="#operator/profile/change-password">{{lable.change_password}}</a>
+        </div>
+    </div>
+</div>

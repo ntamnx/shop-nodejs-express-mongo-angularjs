@@ -1,0 +1,64 @@
+<div class="container" ng-controller="printStudentController">
+    <div class="panel panel-default panel_margin">
+        <div class="panel-heading"><label class="black">In thông tin học viên</label></div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-5">
+                    <form class="form-horizontal form-label-left">
+                        <div class="form-group">
+                            <label class="col-sm-2 text-right control-label">mô tả 1</label>
+                            <div class="col-sm-9">
+                                <input type="text"  class="form-control" name="description1"  ng-model="printDescription.description1">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 text-right control-label">Mô tả 2</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="description2"  ng-model="printDescription.description2" >
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-primary" ng-click="printPDF()">{{lable.print}}</button>
+                    <br/>
+                    <a class="btn btn-default" href="#operator/student">{{lable.back}}</a>
+
+                </div>
+                <div class="col-sm-5">
+                    <input type="checkbox" ng-model="print.cv" value="cv"> <label>{{lable.cv}}</label>
+                    <br/>
+                    <input type="checkbox" ng-model="print.study" value="study"><label>{{lable.result_study}}</label>
+                    <br/>
+                    <input type="checkbox" ng-model="print.comment" value="comment"><label>{{lable.comment_supervisor}}</label>
+
+                </div>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{lable.stt}}</th>
+                        <th ng-click="sortBy('name')">{{lable.name_student}}</th>
+                        <th ng-click="sortBy('email')">{{lable.email}}</th>
+                        <th ng-click="sortBy('address')">{{lable.address}}</th>
+                        <th ng-click="sortBy('sex')">{{lable.sex}}</th>
+                        <th ng-click="sortBy('birth')">{{lable.birth}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="student in students.slice(((currentPage - 1) * itemsPerPage), ((currentPage) * itemsPerPage))|orderBy: field_order : reverse">
+                        <td>{{$index + 1 + ((currentPage - 1) * itemsPerPage)}}</td>
+                        <td>{{student.name}}</td>
+                        <td>{{student.email}}</td>
+                        <td>{{student.address}}</td>
+                        <td>{{student.sex}}</td>
+                        <td>{{student.birth * 1000| date : 'yyyy-MM-dd'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div ng-show="totalItems > itemsPerPage">
+                <pagination total-items="totalItems" first-text="&laquo;&laquo;" previous-text="&laquo;" next-text="&raquo;"  last-text="&raquo;&raquo;" max-size="maxsize" boundary-links="true" ng-model="currentPage" ng-change="pageChange(currentPage)" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
+            </div>
+        </div>
+    </div>
+</div>

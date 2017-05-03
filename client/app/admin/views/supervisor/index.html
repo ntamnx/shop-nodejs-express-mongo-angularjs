@@ -1,0 +1,46 @@
+<div class="container" ng-controller="indexSupervisorController">
+    <div class="panel panel-default panel_margin">
+        <div class="panel-heading"><label class="black"> {{lable.list_supervisor}}</label></div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-4">
+                </div>
+                <div class="col-sm-8 pull-right"  >
+                    <form class="navbar-form navbar-left pull-right" role="search"  >
+                        <div class="form-group">
+                            <input type="text" class="form-control" ng-model="keyword" ng-change="pageChangeSearch(currentPage)" placeholder="{{lable.search}}" >
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="width-5">{{lable.stt}}</th>
+                        <th class="width-12-5">{{lable.name_user}}</th>
+                        <th class="width-17-5">{{lable.email}}</th>
+                        <th class="width-25">{{lable.address}}</th>
+                        <th class="width-10">{{lable.phone}}</th>
+                        <th class="width-20">{{lable.name_operator}}</th>
+                        <th class="width-10">{{lable.detail}}</th>
+                    </tr>
+                </thead>
+                <tbody ng-init="fileds = ['name', 'email', 'phone', 'address', 'name_organization']">
+                    <tr ng-repeat="supervisor in supervisors.slice(((currentPage - 1) * itemsPerPage), ((currentPage) * itemsPerPage))| customSearch : keyword : fileds">
+                        <td>{{$index + 1 + ((currentPage - 1) * itemsPerPage)}}</td>
+                        <td>{{supervisor.name}}</td>
+                        <td>{{supervisor.email}}</td>
+                        <td>{{supervisor.address}}</td>
+                        <td>{{supervisor.phone}}</td>
+                        <td ng-click="searchByOperator(supervisor.name_organization)"><a href="javascript:0" style="color: #0000FF"><u>{{supervisor.name_organization}}</u></a></td>
+                        <td><a class="btn btn-default btn-xs" href="#admin/supervisor/{{supervisor._id}}">{{lable.view}}</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div ng-show="totalItems > itemsPerPage">
+                <pagination total-items="totalItems" first-text="&laquo;&laquo;" previous-text="&laquo;" next-text="&raquo;"  last-text="&raquo;&raquo;" max-size="maxsize" boundary-links="true" ng-model="currentPage" ng-change="pageChange(currentPage)" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,33 @@
+<div div class="container" ng-controller="detailNotificationController">
+    <div class="panel panel-default panel_margin">
+        <div class="panel-heading"><label class="black">{{lable.detail_notification}}</label></div>
+        <div class="panel-body">
+            <form class="form-horizontal form-label-left" name="frm_add_group" novalidate ng-submit="addGroup()">
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.title}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" name="title"  disabled ng-model="notification.title" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.date_send}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text"  class="form-control" name="title"  disabled value="{{notification.created * 1000| date:'yyyy-MM-dd HH:mm'}}" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{lable.description}}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <textarea rows="5" ng-model="notification.description" class="form-control" disabled></textarea>
+                    </div>
+                </div>
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                    <div class="col-md-9 col-sm-9 col-xs-12 ">
+                        <a  class="btn btn-default" href="#operator/notification">{{lable.back}}</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

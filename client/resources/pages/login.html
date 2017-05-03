@@ -1,0 +1,41 @@
+<div class="login_wrapper" ng-controller="loginController">
+    <div id="animation_login">
+        <img src="../../public/images/icon-logo-white.png">
+    </div>
+    <div class="animate form login_form hide" id="div-login">
+        <section class="login_content">
+            <form name="login" novalidate ng-submit="loginForm()" >
+                <div id="login-icon-login">
+                    <img  src="../../public/images/icon-logo.png">
+                    <h1>{{lable.login_title}}</h1>
+                </div>
+                <div class="form-group" ng-class="{'has-error': (login.email.$touched && login.email.$invalid) || (login.email.$invalid && login.$submitted) }">
+                    <input type="email" name="email" ng-model="email" style="margin: 5px 0px" class="form-control" placeholder="{{lable.email}}" required />
+                    <div ng-messages="login.email.$error" ng-show="login.email.$touched || login.$submitted">
+                        <span class="error" ng-message="required">{{lable.input_email}}</span>
+                        <span class="error" ng-message="email">{{lable.input_email_error}}</span>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': (login.password.$touched && login.password.$invalid) || (login.password.$invalid && login.$submitted) }">
+                    <input type="password" name="password" ng-minlength="6" ng-model="password" style="margin: 5px 0px" class="form-control" placeholder="{{lable.password}}" required />
+                    <div ng-messages="login.password.$error" ng-show="login.password.$touched || login.$submitted">
+                        <span class="error" ng-message="required">{{lable.input_password}}</span>
+                        <span class="error" ng-message="minlength">{{lable.input_password_min_length}}</span>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-default submit" type="submit">{{lable.login}}</button>
+                    <a class="reset_pass" href="#reset-password">{{lable.forgot_password}}</a>
+                </div>
+                <div class="clearfix"></div>
+                <div class="separator">
+                    <div class="clearfix"></div>
+                    <div>
+                        <p> <span ng-click="setLanguage('vi')" class="point-cursor-pointer">Tiếng Việt | </span>
+                            <span ng-click="setLanguage('ja')" class="point-cursor-pointer" >日本の | </span> Copyright © 2017, HOUHOU!</p>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
